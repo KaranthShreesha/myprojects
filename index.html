@@ -102,7 +102,7 @@
         <div><label for="summary">Summary:</label> <input type="text" name="summary" id="summary"></div>
   <div><label for="startDate">Start Date:</label> <input type="date" name="startDate" id="startDate"></div>
   <div><label for="endDate">End Date:</label> <input type="date" name="endDate" id="endDate"></div>
-  <div><label for="attendees">Attendess: </label> <textarea name="attendees" id="attendees" cols="30" rows="4">Enter emails of attendees with comma separated list</textarea></div>
+  <div><label for="attendees">Attendess: </label> <textarea name="attendees" id="attendees" cols="30" rows="4" placeholder="Enter emails of attendees with comma separated list"></textarea></div>
   <div><button onclick="insertEvent()">Create Event</button></div>
       </form>
       `;
@@ -121,54 +121,23 @@
       var event = {
         summary : document.querySelector('#eventForm #summary').value,
         start : {
-          dateTime : document.querySelector('#eventForm #startDate').value
+          date : document.querySelector('#eventForm #startDate').value
         },
         end : {
-          dateTime : document.querySelector('#eventForm #endDate').value
+          date : document.querySelector('#eventForm #endDate').value
         },
         attendees : attendees
       };
-      console.log(event)
-      // var event = {
-      //   'summary': 'Sleeping and more sleeling!!!!',
-      //   'location': 'mane olage',
-      //   'description': 'Haage summane eno ondu!!',
-      //   'start': {
-      //     'dateTime': '2020-09-02T09:00:00-07:00'
-      //   },
-      //   'end': {
-      //     'dateTime': '2020-09-02T17:00:00-07:00'
-      //   },
-      //   'attendees': [{
-      //       'email': 'shreeshak97@gmail.com'
-      //     },
-      //     {
-      //       'email': 'sushmak93@gmail.com'
-      //     }
-      //   ],
-      //   'reminders': {
-      //     'useDefault': false,
-      //     'overrides': [{
-      //         'method': 'email',
-      //         'minutes': 24 * 60
-      //       },
-      //       {
-      //         'method': 'popup',
-      //         'minutes': 10
-      //       }
-      //     ]
-      //   }
-      // };
 
-      // var request = gapi.client.calendar.events.insert({
-      //   'calendarId': 'primary',
-      //   'resource': event
-      // });
+      var request = gapi.client.calendar.events.insert({
+        'calendarId': 'primary',
+        'resource': event
+      });
 
-      // request.execute(function (event) {
-      //   appendPre('Event created: ' + event.htmlLink);
-      // });
-      // listUpcomingEvents();
+      request.execute(function (event) {
+        appendPre('Event created: ' + event.htmlLink);
+        window.location.reload();
+      });
     }
   </script>
 
